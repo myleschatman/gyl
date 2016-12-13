@@ -1,0 +1,20 @@
+{
+  "name": "gyl",
+  "description": "Currency Exchange application.",
+  "main": "",
+  "authors": [
+    "Myles Chatman <myleschatman@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/myleschatman/gyl",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}

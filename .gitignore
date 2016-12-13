@@ -1,1 +1,24 @@
-node_modules
+# Packages #
+############
+*.7z
+*.dmg
+#.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# OS Generated Files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+
+# Build Systems #
+#################
+node_modules/
+public/lib/
+build/
+dist/
