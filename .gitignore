@@ -9,6 +9,9 @@
 *.tar
 *.zip
 
+.jscsrc
+.jshintrc
+
 # OS Generated Files #
 ######################
 .DS_Store

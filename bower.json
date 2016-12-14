@@ -15,6 +15,16 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^3.1.1"
-  }
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  },
+    "overrides": {
+      "bootstrap": {
+        "main": [
+          "dist/js/bootstrap.js",
+          "dist/css/bootstrap.min.css",
+          "less/bootstrap.less"
+        ]
+      }
+    }
 }
