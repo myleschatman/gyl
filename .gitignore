@@ -1,27 +1,2 @@
-# Packages #
-############
-*.7z
-*.dmg
-#.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-.jscsrc
-.jshintrc
-
-# OS Generated Files #
-######################
+node_modules
 .DS_Store
-.DS_Store?
-._*
-.Trashes
-
-# Build Systems #
-#################
-node_modules/
-public/lib/
-build/
-dist/
