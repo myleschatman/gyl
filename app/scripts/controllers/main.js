@@ -8,28 +8,27 @@
  */
 angular.module('gylApp')
   .controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
-    var baseUrl = 'http://api.fixer.io/';
+    // var baseUrl = 'http://api.fixer.io/';
 
-    $scope.url = baseUrl + 'latest';
+    $scope.currencyFrom = 'USD';
+    $scope.currencyTo = 'EUR';
+
+    var parseData = function(response) {
+      $scope.currencies = _.map(response.data.rates, function (value, prop) {
+        return {country: prop, rate: value};
+      });
+    };
+
+    var errorCallback = function(response) {
+      console.log('Error:', response);
+    };
 
     $http.get('rates.json')
-      .then(function (response) {
-        $scope.results = response.data;
-        setExchangeRates();
-      }, function (error) {
-        console.log('ERROR:', error);
-      });
-
-    function setExchangeRates() {
-      fx.base = $scope.results.base;
-      fx.rates = $scope.results.rates;
-      console.log(fx.base, fx.rates);
-    }
+      .then(parseData, errorCallback);
+    console.log($scope);
+    $scope.updateCurrency = function(currency) {
+      console.log(currency);
+    };
+    // fx.base = response.data.base;
+    // fx.rates = response.data.rates;
   }]);
-
-  // $http.get('rates.json').then(function(res) {
-  //   fx.base = res.data.base;
-  //   fx.rates = res.data.rates;
-  //   fx.settings = {from: 'USD', to: 'CNY'};
-  //   console.log(fx.convert(1000).toFixed(2));
-  // });

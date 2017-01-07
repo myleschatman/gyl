@@ -12,6 +12,7 @@
   "unused": true,
   "globals": {
     "angular": false,
-    "fx": false
+    "fx": false,
+    "_": false
   }
 }
