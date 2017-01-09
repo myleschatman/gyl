@@ -18,7 +18,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap'
+    'ui.select'
   ])
   .config(function ($routeProvider) {
     $routeProvider

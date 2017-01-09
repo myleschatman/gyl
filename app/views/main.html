@@ -1,45 +1,26 @@
 <div class="jumbotron">
-
-  <div class="btn-group" uib-dropdown>
-    <button ng-click="submit" id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-      {{currencyFrom}}<span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="single-button">
-      <li ng-repeat="currency in currencies" value="{{currency.country}}">
-        <a ng-click="updateCurrency(currency.country)">{{currency.country}}</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="btn-group" uib-dropdown>
-    <button ng-click="submit" id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-      {{currencyTo}}<span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-      <li ng-repeat="currency in currencies" value="{{currency.country}}">
-        <a ng-click="updateCurrency(currency.country)">{{currency.country}}</a>
-      </li>
-    </ul>
-  </div>
-
+  <img src="images/flags/United-States-Of-America.png" style="width: 7%; height: 7%;">
+  <form enctype="multipart/form-data" method="post" name="form" class="form-horizontal" ng-submit="submitForm()">
+    <ui-select ng-model="form.currencyFrom" class="dropdown" theme="bootstrap">
+      <ui-select-match placeholder="USD">
+        {{$select.selected.country}}
+      </ui-select-match>
+      <ui-select-choices repeat="currency in currencies | filter: $select.search" value="{{$select.selected.country}}">
+        <div ng-bind-html="currency.country | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+  </form>
+  <!-- Selected: {{form.currencyFrom.country}} -->
+  <img src="images/flags/China.png" style="width: 7%; height: 7%;">
+  <form enctype="multipart/form-data" method="post" name="form" class="form-horizontal" ng-submit="submitForm()">
+    <ui-select ng-model="form.currencyTo" class="dropdown" theme="bootstrap">
+      <ui-select-match placeholder="CNY">
+        {{$select.selected.country}}
+      </ui-select-match>
+      <ui-select-choices repeat="currency in currencies | filter: $select.search" value="{{$select.selected.country}}">
+        <div ng-bind-html="currency.country | highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+  </form>
+  <!-- Selected: {{form.currencyTo.country}} -->
 </div>
-
-<!-- <label class="item item-input item-select">
-  <div class="input-label">
-    From Currency
-  </div>
-  <select ng-model="Data.fromCurrency" ng-change="getExchangeRate()">
-    <option value="">Select</option>
-    <option ng-repeat="currency in currencies" value="{{currency.country}}">{{currency.country}}</option>
-  </select>
-</label>
-
-<label class="item item-input item-select">
-  <div class="input-label">
-    To Currency
-  </div>
-  <select ng-model="Data.toCurrency" ng-change="getExchangeRate()">
-    <option value="">Select</option>
-    <option ng-repeat="currency in currencies" value="{{currency.country}}">{{currency.country}}</option>
-  </select>
-</label> -->
