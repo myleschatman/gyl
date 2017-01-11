@@ -1,26 +1,31 @@
 <div class="jumbotron">
-  <img src="images/flags/United-States-Of-America.png" style="width: 7%; height: 7%;">
-  <form enctype="multipart/form-data" method="post" name="form" class="form-horizontal" ng-submit="submitForm()">
-    <ui-select ng-model="form.currencyFrom" class="dropdown" theme="bootstrap">
-      <ui-select-match placeholder="USD">
-        {{$select.selected.country}}
-      </ui-select-match>
-      <ui-select-choices repeat="currency in currencies | filter: $select.search" value="{{$select.selected.country}}">
-        <div ng-bind-html="currency.country | highlight: $select.search"></div>
-      </ui-select-choices>
-    </ui-select>
-  </form>
-  <!-- Selected: {{form.currencyFrom.country}} -->
-  <img src="images/flags/China.png" style="width: 7%; height: 7%;">
-  <form enctype="multipart/form-data" method="post" name="form" class="form-horizontal" ng-submit="submitForm()">
-    <ui-select ng-model="form.currencyTo" class="dropdown" theme="bootstrap">
-      <ui-select-match placeholder="CNY">
-        {{$select.selected.country}}
-      </ui-select-match>
-      <ui-select-choices repeat="currency in currencies | filter: $select.search" value="{{$select.selected.country}}">
-        <div ng-bind-html="currency.country | highlight: $select.search"></div>
-      </ui-select-choices>
-    </ui-select>
-  </form>
-  <!-- Selected: {{form.currencyTo.country}} -->
+  <input ng-model="value" placeholder="1"></input>
+  <img src="images/flags/{{base.selected.name}}.png" style="width: 7%; height: 7%; position: relative;">
+  <ui-select ng-model="base.selected" class="dropdown" theme="bootstrap">
+    <ui-select-match>
+      {{$select.selected.country}}
+    </ui-select-match>
+    <ui-select-choices repeat="currency in currencies | filter: $select.search" value="{{$select.selected.country}}" ng-click="getRates($select.selected)">
+      <div ng-bind-html="currency.country | highlight: $select.search"></div>
+    </ui-select-choices>
+  </ui-select>
+
+  <button type="button" class="btn btn-default btn-circle">
+    <i class="fa fa-exchange fa-lg" aria-hidden="true"></i>
+  </button>
+
+  <div class="flag" ng-if="rate.selected.name">
+    <img src="images/flags/{{rate.selected.name}}.png" id="to" style="width: 7%; height: 7%; position: relative;">
+  </div>
+  <ui-select ng-model="rate.selected" class="dropdown" theme="bootstrap">
+    <ui-select-match placeholder="Select Country">
+      {{$select.selected.country}}
+    </ui-select-match>
+    <ui-select-choices repeat="currency in currencies | filter: $select.search" value="{{$select.selected.country}}" ng-click="changeFlag($select.selected)"> <!-- Need to use local storage -->
+      <div ng-bind-html="currency.country | highlight: $select.search"></div>
+    </ui-select-choices>
+  </ui-select>
+  <div class=result>
+    <span>{{value}} {{base.selected.country}} = {{rate.selected.rate}} {{rate.selected.country}}</span>
+  </div>
 </div>

@@ -9,28 +9,41 @@
 angular.module('gylApp')
   .controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     // var baseUrl = 'http://api.fixer.io/';
-    $scope.currency = {};
-    $scope.currency.selected = {name: 'United State of America', country: 'USD'};
+    $scope.base = {};
+    $scope.base.selected = {name: 'United-States', country: 'USD'};
+    $scope.rate = {};
 
-    var parseData = function(response) {
-      $scope.currencies = _.map(response.data.rates, function (value, prop) {
-        return {country: prop, rate: value};
-      });
+    $scope.changeFlag = function(currency) {
+      $http.get('countries.json')
+        .then(function(response) {
+          var code = currency.country.slice(0, -1); // remove last char to match country code
+          currency.name = response.data[code].replace(/\s+/g, '-'); // remove hyphens to match flag name
+        });
     };
 
-    var countryFlag = $http.get('countries.json')
-      .then(function(response) {
-        $scope.countries = response.data;
+    $scope.getRates = function(currency) {
+      // console.log($scope);
+      var countryCode = currency.country;
+      $http.get('http://api.fixer.io/latest?base=' + countryCode)
+        .then(parseData, errorCallback);
+      $scope.changeFlag(currency);
+    };
+
+    var parseData = function(response) {
+      // console.log(response.data.rates[$scope.selected.country]);
+      $scope.currencies = _.map(response.data.rates, function (value, prop) { // each currency becomes an object for iteration purposes
+        return {country: prop, rate: value};
       });
-    console.log(countryFlag);
+      $scope.rate.selected.rate = response.data.rates[$scope.rate.selected.country];
+    };
 
     var errorCallback = function(response) {
       console.log('Error:', response);
     };
 
-    $http.get('rates.json')
+    $http.get('http://api.fixer.io/latest?base=USD') // get default data to display on page load
       .then(parseData, errorCallback);
-    console.log($scope);
+
     // fx.base = response.data.base;
     // fx.rates = response.data.rates;
   }]);
