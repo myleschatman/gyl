@@ -1,11 +1,11 @@
 <div class="jumbotron">
-  <input ng-model="value" placeholder="1"></input>
+  <input ng-model="amount" ng-pattern="numeric" type="text" placeholder="{{amount ? amount : '1'}}" ng-change="calculateRate(amount)"></input>
   <img src="images/flags/{{base.selected.name}}.png" style="width: 7%; height: 7%; position: relative;">
   <ui-select ng-model="base.selected" class="dropdown" theme="bootstrap">
     <ui-select-match>
       {{$select.selected.country}}
     </ui-select-match>
-    <ui-select-choices repeat="currency in currencies | filter: $select.search" value="{{$select.selected.country}}" ng-click="getRates($select.selected)">
+    <ui-select-choices repeat="currency in currencies | filter: $select.search" value="{{$select.selected.country}}" ng-click="getRates($select.selected, amount)">
       <div ng-bind-html="currency.country | highlight: $select.search"></div>
     </ui-select-choices>
   </ui-select>
@@ -26,6 +26,6 @@
     </ui-select-choices>
   </ui-select>
   <div class=result>
-    <span>{{value}} {{base.selected.country}} = {{rate.selected.rate}} {{rate.selected.country}}</span>
+    <span>{{amount}} {{base.selected.country}} = {{rate.selected.rate}} {{rate.selected.country}}</span>
   </div>
 </div>

@@ -8,42 +8,57 @@
  */
 angular.module('gylApp')
   .controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
-    // var baseUrl = 'http://api.fixer.io/';
     $scope.base = {};
     $scope.base.selected = {name: 'United-States', country: 'USD'};
     $scope.rate = {};
-
-    $scope.changeFlag = function(currency) {
-      $http.get('countries.json')
-        .then(function(response) {
-          var code = currency.country.slice(0, -1); // remove last char to match country code
-          currency.name = response.data[code].replace(/\s+/g, '-'); // remove hyphens to match flag name
-        });
-    };
-
-    $scope.getRates = function(currency) {
-      // console.log($scope);
-      var countryCode = currency.country;
-      $http.get('http://api.fixer.io/latest?base=' + countryCode)
-        .then(parseData, errorCallback);
-      $scope.changeFlag(currency);
-    };
+    $scope.amount = 1;
+    $scope.numeric = /^\d+$/;
 
     var parseData = function(response) {
-      // console.log(response.data.rates[$scope.selected.country]);
+      fx.base = response.data.base;
+      fx.rates = response.data.rates;
       $scope.currencies = _.map(response.data.rates, function (value, prop) { // each currency becomes an object for iteration purposes
         return {country: prop, rate: value};
       });
-      $scope.rate.selected.rate = response.data.rates[$scope.rate.selected.country];
+      if ($scope.rate.selected) {
+        var selectedCountry = $scope.rate.selected.country;
+        var globalRates = response.data.rates;
+
+        $scope.rate.selected.rate = globalRates[selectedCountry].toFixed(2); // change current selected rate to new updated rate
+      }
     };
 
     var errorCallback = function(response) {
       console.log('Error:', response);
     };
 
+    $scope.changeFlag = function(currency) {
+      $http.get('countries.json')
+        .then(function(response) {
+          var countryName = currency.country.slice(0, -1); // remove last char to match country code in JSON file
+          currency.name = response.data[countryName].replace(/\s+/g, '-'); // remove hyphens to match flag name
+          $scope.rate.selected.rate = Number($scope.rate.selected.rate).toFixed(2); // round to two decimal places
+        });
+    };
+
+    $scope.calculateRate = function(amount) {
+      for (var rate in fx.rates) {
+        if (rate === $scope.rate.selected.country) { // current country selected in dropdown menu
+          console.log($scope.rate.selected.rate);
+          $scope.rate.selected.rate = fx(amount).from(fx.base).to(rate).toFixed(2); // change current selected rate to new updated rate
+          console.log($scope.rate.selected.rate);
+        }
+      }
+    };
+
+    $scope.getRates = function(currency, amount) {
+      var countryCode = currency.country;
+      $http.get('http://api.fixer.io/latest?base=' + countryCode)
+        .then(parseData, errorCallback);
+      $scope.changeFlag(currency);
+      $scope.calculateRate(amount);
+    };
+
     $http.get('http://api.fixer.io/latest?base=USD') // get default data to display on page load
       .then(parseData, errorCallback);
-
-    // fx.base = response.data.base;
-    // fx.rates = response.data.rates;
   }]);

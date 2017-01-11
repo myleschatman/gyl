@@ -100,6 +100,10 @@ input {
   font-family: 'PT Sans', sans-serif;
 }
 
+.ui-select-search {
+    min-width: 100%;
+}
+
 .btn-default {
   border-color: transparent;
   @include removeElementState;
