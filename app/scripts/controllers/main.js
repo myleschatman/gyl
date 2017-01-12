@@ -59,6 +59,6 @@ angular.module('gylApp')
       $scope.calculateRate(amount);
     };
 
-    $http.get('http://api.fixer.io/latest?base=USD') // get default data to display on page load
+    $http.get('https://api.fixer.io/latest?base=USD') // get default data to display on page load
       .then(parseData, errorCallback);
   }]);
