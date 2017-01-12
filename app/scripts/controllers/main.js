@@ -44,9 +44,7 @@ angular.module('gylApp')
     $scope.calculateRate = function(amount) {
       for (var rate in fx.rates) {
         if (rate === $scope.rate.selected.country) { // current country selected in dropdown menu
-          console.log($scope.rate.selected.rate);
           $scope.rate.selected.rate = fx(amount).from(fx.base).to(rate).toFixed(2); // change current selected rate to new updated rate
-          console.log($scope.rate.selected.rate);
         }
       }
     };
