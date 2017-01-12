@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <input ng-model="amount" ng-pattern="numeric" type="text" placeholder="{{amount ? amount : '1'}}" ng-change="calculateRate(amount)"></input>
-  <img src="images/{{base.selected.name}}.png" style="width: 7%; height: 7%; position: relative;">
+  <img src="images/flags/{{base.selected.name}}.png" style="width: 7%; height: 7%; position: relative;">
   <ui-select ng-model="base.selected" class="dropdown" theme="bootstrap">
     <ui-select-match>
       {{$select.selected.country}}
@@ -15,7 +15,7 @@
   </button>
 
   <div class="flag" ng-if="rate.selected.name">
-    <img src="images/{{rate.selected.name}}.png" id="to" style="width: 7%; height: 7%; position: relative;">
+    <img src="images/flags/{{rate.selected.name}}.png" id="to" style="width: 7%; height: 7%; position: relative;">
   </div>
   <ui-select ng-model="rate.selected" class="dropdown" theme="bootstrap">
     <ui-select-match placeholder="Select Country">
