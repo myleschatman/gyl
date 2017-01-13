@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('An AngularJS Test Suite', function () {
 
   // load the controller's module
   beforeEach(module('gylApp'));
@@ -17,7 +17,8 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(MainCtrl.awesomeThings.length).toBe(3);
-  });
+  it('should add currencies', function() {
+    
+  };
+
 });

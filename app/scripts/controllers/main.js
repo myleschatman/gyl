@@ -13,6 +13,7 @@ angular.module('gylApp')
     $scope.rate = {};
     $scope.amount = 1;
     $scope.numeric = /^\d+$/;
+    $scope.url = 'rates.json';
 
     var parseData = function(response) {
       fx.base = response.data.base;
@@ -66,6 +67,8 @@ angular.module('gylApp')
       $scope.calculateRate(amount);
     };
 
-    $http.get('https://api.fixer.io/latest?base=USD') // get default data to display on page load
-      .then(parseData, errorCallback);
+    $scope.getData = function() {
+      $http.get('https://api.fixer.io/latest?base=USD') // get default data to display on page load
+        .then(parseData, errorCallback);
+    }();
   }]);
