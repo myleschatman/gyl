@@ -56,9 +56,11 @@ angular.module('gylApp')
       $scope.rate.selected.country = temp;
       $scope.changeFlag(baseFlag);
       $scope.changeFlag(rateFlag);
+      $scope.getRates(baseFlag);
     };
 
     $scope.getRates = function(currency, amount) {
+      console.log(currency);
       $scope.amount = 1;  // reset input amount
       var countryCode = currency.country;
       $http.get('https://api.fixer.io/latest?base=' + countryCode)
