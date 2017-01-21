@@ -43,6 +43,7 @@ angular.module('gylApp')
     };
 
     $scope.calculateRate = function(amount) {
+      if (!amount) { amount = '0'; } // initalize to 0 to avoid displaying NaN is output
       for (var rate in fx.rates) {
         if (rate === $scope.rate.selected.country) { // current country selected in dropdown menu
           $scope.rate.selected.rate = fx(amount).from(fx.base).to(rate).toFixed(2); // change current selected rate to new updated rate
@@ -60,7 +61,6 @@ angular.module('gylApp')
     };
 
     $scope.getRates = function(currency, amount) {
-      console.log(currency);
       $scope.amount = 1;  // reset input amount
       var countryCode = currency.country;
       $http.get('https://api.fixer.io/latest?base=' + countryCode)
