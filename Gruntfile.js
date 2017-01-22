@@ -481,7 +481,7 @@ module.exports = function (grunt) {
       },
       heroku: {
         options: {
-          remote: 'git@heroku.com:mighty-badlands-94009.git',
+          remote: 'git@heroku.com:agile-thicket-34581.git',
           branch: 'master',
           tag: pkg.version
         }
